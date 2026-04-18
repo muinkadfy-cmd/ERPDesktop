@@ -1,0 +1,44 @@
+---
+description: Padrão visual ERP desktop (referência SoftCalcados / WinForms clássico)
+alwaysApply: true
+---
+
+# Referência de telas (objetivo visual)
+
+Use este padrão ao criar ou alterar telas WinForms do **ERPDesktop** (e evoluções do mesmo produto).
+
+## Menu por módulo (Vendas, Financeiro, WhatsApp — estilo “quadro de menus”)
+
+- **Modal** sobre a janela principal: `FormBorderStyle.FixedDialog`, **sem** maximizar/minimizar.
+- **Tamanho fixo do cliente**: **600×300 px** (`ErpModuloModal.TamanhoCliente`) — **Vendas e Financeiro devem usar exatamente o mesmo tamanho**.
+- `StartPosition = CenterParent`, `ShowInTaskbar = false` ao abrir como filho modal.
+- **Layout**: `TableLayoutPanel` ~**62%** esquerda (grade **2 colunas** de botões largos) + ~**38%** direita (título + painel ilustrativo / marca do módulo).
+- Botões: estilo ERP (borda fina, fundo claro, texto legível; última linha **Sair** ocupando as duas colunas).
+- Título da janela no padrão de destaque: `>>> MENU DE … <<<` (ou equivalente curto e consistente).
+
+## Pesquisa de produtos / serviços (referência “PESQUISA DOS PRODUTOS…”)
+
+- Janela **ampla** (não o menu 600×300); título com **setas** `>>> … <<<`.
+- Faixa superior: **ordenar**, **filtro geral**, **categoria**, **marca**, **descrição** (campo de busca pode ter destaque suave quando foco).
+- **DataGridView** ocupando a maior parte: colunas tipo referência, código, descrição, unidade, preços, estoque, grupo, marca, localização.
+- **Cores de linha por regra de negócio** (estoque): verde = OK, amarelo = estoque baixo, vermelho/rosa = zerado, branco/cinza = serviço ou sem controle (legenda no rodapé obrigatória).
+- Ações em **barra** (novo, alterar, excluir, impressão, etc.) e dica **ESC / Sair**.
+
+## Cadastro (produto, cliente, fornecedor — referência “Tela cadastro…”)
+
+- Formulário **centralizado**; alta densidade aceitável, mas **alinhado em grade** (`TableLayoutPanel` / abas).
+- Campos-chave com hierarquia visual (ex.: nome em destaque leve); **observações** podem usar fundo amarelo suave.
+- Abas: *Endereço e contatos*, *Informações / observações / histórico*, etc., conforme o caso.
+- **Botões laterais** ou inferiores claros: Salvar (destaque), Imprimir, Sair.
+
+## Shell principal (MDI)
+
+- `MenuStrip` + **ToolStrip** com **ícones grandes** (32–48) e texto abaixo do ícone.
+- `StatusStrip` segmentado (mensagem, data longa, caminho DB se útil, Num/Caps/Ins, hora, usuário, versão).
+- Área MDI com cor de workspace definida em tema (`ErpTheme.MdiWorkspace`).
+
+## Regras gerais
+
+- Aparência **Windows nativa / ERP comercial**, não web.
+- Ícones podem ser desenhados em código ou PNG em `Resources` — priorizar **consistência** e legibilidade.
+- Ao adicionar novo “menu de módulo”, **reutilizar** `ErpModuloModal.AplicarShell` e o **mesmo** `TamanhoCliente`.

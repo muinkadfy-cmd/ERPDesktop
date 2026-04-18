@@ -1,0 +1,17 @@
+ERPDesktop — como rodar
+========================
+
+Pré-requisitos:
+- Windows com .NET SDK 8 instalado (recomendado SDK 8 LTS estável).
+
+Passos:
+1) Abra um terminal na pasta: c:\SoftCalcadosSantiago\ERPDesktop
+2) Execute: dotnet build ERPDesktop.sln -c Release
+3) Execute: dotnet run --project src\ERPDesktop.App\ERPDesktop.App.csproj -c Release
+
+Dados:
+- O SQLite é criado automaticamente em:
+  %LocalAppData%\ERPDesktop\Data\erpdesktop.db
+
+Observação:
+- Se você estiver com preview do .NET 10 no PATH, ainda assim o projeto alvo é net8.0 / net8.0-windows.
