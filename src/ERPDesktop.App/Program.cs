@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ERPDesktop.App.Forms;
 using ERPDesktop.Application.Abstractions;
 using ERPDesktop.Application.Services;
@@ -14,6 +15,16 @@ internal static class Program
     {
         ApplicationConfiguration.Initialize();
         WinApp.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+        WinApp.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+        WinApp.ThreadException += (_, e) => TratarExcecaoNaoTratada("Erro na interface", e.Exception);
+        AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+        {
+            var ex = e.ExceptionObject as Exception;
+            Trace.TraceError(
+                "[ERP Desktop] UnhandledException (IsTerminating={0}): {1}",
+                e.IsTerminating,
+                ex ?? (object)e.ExceptionObject ?? "Desconhecido");
+        };
 
         var services = new ServiceCollection();
         services.AddErpInfrastructure();
@@ -66,5 +77,15 @@ internal static class Program
         main.ConfigurarProvider(provider);
 
         WinApp.Run(main);
+    }
+
+    private static void TratarExcecaoNaoTratada(string titulo, Exception ex)
+    {
+        Trace.TraceError("[ERP Desktop] {0}: {1}", titulo, ex);
+        MessageBox.Show(
+            $"{titulo}.\r\n\r\n{ex.Message}\r\n\r\nDetalhes foram registados na saída de diagnóstico (Debug).",
+            "ERP Desktop",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
     }
 }
