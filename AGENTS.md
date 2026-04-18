@@ -10,7 +10,8 @@ Leia **sempre** antes de alterar código deste projeto:
    WinForms .NET 8, SQLite, camadas `App` / `Application` / `Domain` / `Infrastructure`.
 
 3. **Build**  
-   `dotnet build ERPDesktop.sln -c Release` (a partir da pasta `ERPDesktop`).
+   `dotnet build ERPDesktop.sln -c Release` (a partir da pasta `ERPDesktop`).  
+   Testes: `dotnet test ERPDesktop.sln -c Release`. CI: `.github/workflows/dotnet.yml` (runner `windows-latest` por causa do WinForms).
 
 4. **Layout**  
    Utilitários em `src/ERPDesktop.App/Ui/` (`ErpTheme`, `ErpChrome`, `ErpGridStyle`, `ErpFormLayout`, etc.); preferir reutilizar em novas telas.
