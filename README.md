@@ -34,6 +34,10 @@ A base **SQLite** é criada automaticamente em:
 
 Ficheiros **Serilog** (rotação diária, 14 dias): `%LocalAppData%\ERPDesktop\Logs\erp-YYYYMMDD.log`
 
+## Ícones da barra principal
+
+Folha **4×6** em [`src/ERPDesktop.App/Resources/erp_toolbar_sprite.png`](src/ERPDesktop.App/Resources/erp_toolbar_sprite.png): recorte e escala em `ToolbarSpriteSheet` / `ToolbarSpriteHelper` (DPI + evento `DpiChanged`). Para mudar o mapeamento botão → célula, edita `MainToolbarCells` em `ToolbarSpriteHelper.cs`.
+
 ## Documentação interna
 
 - [`AGENTS.md`](AGENTS.md) — convenções para agentes e IA ao alterar o projeto
