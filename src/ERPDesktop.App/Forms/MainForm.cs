@@ -13,8 +13,8 @@ public partial class MainForm : Form
     public MainForm()
     {
         InitializeComponent();
-        ToolbarSpriteHelper.Apply(_tool, this);
-        DpiChanged += (_, _) => ToolbarSpriteHelper.Apply(_tool, this);
+        ToolbarIconsHdHelper.Apply(_tool, this);
+        DpiChanged += (_, _) => ToolbarIconsHdHelper.Apply(_tool, this);
         ErpChrome.Aplicar(this, _menu, _tool, _status);
         _header.BackColor = Color.FromArgb(27, 43, 75);
         _footerAtalhos.BackColor = Color.FromArgb(27, 43, 75);

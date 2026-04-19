@@ -36,7 +36,7 @@ Ficheiros **Serilog** (rotação diária, 14 dias): `%LocalAppData%\ERPDesktop\L
 
 ## Ícones da barra principal
 
-Folha **4×6** em [`src/ERPDesktop.App/Resources/erp_toolbar_sprite.png`](src/ERPDesktop.App/Resources/erp_toolbar_sprite.png): recorte e escala em `ToolbarSpriteSheet` / `ToolbarSpriteHelper` (DPI + evento `DpiChanged`). Para mudar o mapeamento botão → célula, edita `MainToolbarCells` em `ToolbarSpriteHelper.cs`.
+Ícones **HD** gerados em código (`ToolbarIconsHd` + `ToolbarIconsHdHelper`): desenho a **128×128** com anti-alias e redução nítida para o tamanho da ToolStrip; atualização em **`DpiChanged`**.
 
 ## Documentação interna
 
