@@ -20,20 +20,36 @@ public static class ToolbarSpriteSheet
         if (cw <= 0 || ch <= 0)
             return null;
 
-        var srcRect = new Rectangle(col * cw, row * ch, cw, ch);
-        using var cell = sprite.Clone(srcRect, sprite.PixelFormat);
-        var dest = new Bitmap(outputSize, outputSize, PixelFormat.Format32bppArgb);
-        using (var g = Graphics.FromImage(dest))
-        {
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.CompositingQuality = CompositingQuality.HighQuality;
-            g.Clear(Color.Transparent);
-            g.DrawImage(cell, new Rectangle(0, 0, outputSize, outputSize));
-        }
+        var sx = col * cw;
+        var sy = row * ch;
+        var sw = Math.Min(cw, sprite.Width - sx);
+        var sh = Math.Min(ch, sprite.Height - sy);
+        if (sw <= 0 || sh <= 0)
+            return null;
 
-        return dest;
+        var srcRect = new Rectangle(sx, sy, sw, sh);
+
+        try
+        {
+            // Evitar Bitmap.Clone: o GDI+ devolve OutOfMemoryException com alguns PNG/formatos.
+            var dest = new Bitmap(outputSize, outputSize, PixelFormat.Format32bppArgb);
+            using (var g = Graphics.FromImage(dest))
+            {
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.CompositingMode = CompositingMode.SourceOver;
+                g.Clear(Color.Transparent);
+                g.DrawImage(sprite, new Rectangle(0, 0, outputSize, outputSize), srcRect, GraphicsUnit.Pixel);
+            }
+
+            return dest;
+        }
+        catch (OutOfMemoryException)
+        {
+            return null;
+        }
     }
 
     public static Bitmap? LoadFromStream(Stream stream)
