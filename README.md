@@ -30,6 +30,10 @@ A base **SQLite** é criada automaticamente em:
 
 `%LocalAppData%\ERPDesktop\Data\erpdesktop.db`
 
+## Logs
+
+Ficheiros **Serilog** (rotação diária, 14 dias): `%LocalAppData%\ERPDesktop\Logs\erp-YYYYMMDD.log`
+
 ## Documentação interna
 
 - [`AGENTS.md`](AGENTS.md) — convenções para agentes e IA ao alterar o projeto

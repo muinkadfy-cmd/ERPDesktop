@@ -11,7 +11,7 @@ Leia **sempre** antes de alterar código deste projeto:
 
 3. **Build**  
    `dotnet build ERPDesktop.sln -c Release` (a partir da pasta `ERPDesktop`).  
-   Testes: `dotnet test ERPDesktop.sln -c Release`. CI: `.github/workflows/dotnet.yml` (runner `windows-latest` por causa do WinForms).
+   Testes: `dotnet test ERPDesktop.sln -c Release`. CI: `.github/workflows/dotnet.yml` (runner `windows-latest` por causa do WinForms). Logs da app: `%LocalAppData%\ERPDesktop\Logs\` (Serilog, ficheiro diário).
 
 4. **Layout**  
    Utilitários em `src/ERPDesktop.App/Ui/` (`ErpTheme`, `ErpChrome`, `ErpGridStyle`, `ErpFormLayout`, etc.); preferir reutilizar em novas telas.
